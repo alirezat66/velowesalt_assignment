@@ -6,19 +6,30 @@ import 'package:velowesalt/features/posts/domain/entities/user_entity.dart';
 import 'package:velowesalt/features/posts/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl extends UserRepository {
-  final UserRemoteDataSource userDataSource;
-  final PostRemoteDataSource postRemoteDataSource;
+  final UserRemoteDataSource _userDataSource;
+  final PostRemoteDataSource _postRemoteDataSource;
+  List<UserEntity> _cachedUserEntities = [];
   UserRepositoryImpl(
-      {required this.userDataSource, required this.postRemoteDataSource});
+      {required UserRemoteDataSource userDataSource,
+      required PostRemoteDataSource postRemoteDataSource})
+      : _userDataSource = userDataSource,
+        _postRemoteDataSource = postRemoteDataSource;
   @override
   Future<List<UserEntity>> getUsers() async {
     late List<UserEntity> users;
-    await Future.wait(
-        [userDataSource.getUsers(), postRemoteDataSource.getPosts()]).then((v) {
-      final usersModel = v[0] as UsersModel;
-      final postsModel = v[1] as PostsModel;
-      users = _convertModelsToEntity(usersModel, postsModel);
-    });
+    if (_cachedUserEntities.isEmpty) {
+      await Future.wait(
+              [_userDataSource.getUsers(), _postRemoteDataSource.getPosts()])
+          .then((v) {
+        final usersModel = v[0] as UsersModel;
+        final postsModel = v[1] as PostsModel;
+        users = _convertModelsToEntity(usersModel, postsModel);
+        _cachedUserEntities = users;
+      });
+    } else {
+      return _cachedUserEntities;
+    }
+
     return users;
   }
 
