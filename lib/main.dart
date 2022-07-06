@@ -4,13 +4,13 @@ import 'package:velowesalt/core/util/route/named_routing.dart';
 import 'package:velowesalt/core/util/theme/light_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:velowesalt/locator.dart';
 
 import 'core/util/route/general_router.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  String baseUrl = dotenv.env['baseurl'] as String;
-  debugPrint(baseUrl);
+  await ServiceLocator.init();
   runApp(const MyApp());
 }
 
