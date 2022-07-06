@@ -42,4 +42,15 @@ class UserRepositoryImpl extends UserRepository {
         .toList();
     return users;
   }
+
+  @override
+  Future<List<Post>> getAUserPost(int userId) async {
+    if (_cachedUserEntities.isEmpty) {
+      await getUsers();
+    }
+    return _cachedUserEntities
+        .where((element) => element.userId == userId)
+        .single
+        .userPosts;
+  }
 }
