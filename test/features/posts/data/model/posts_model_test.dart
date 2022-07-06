@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:velowesalt/features/data/models/posts_model.dart';
+import 'package:velowesalt/features/posts/data/models/posts_model.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../../../../fixtures/fixture_reader.dart';
+
+
 
 void main() {
   group("test posts model", () {

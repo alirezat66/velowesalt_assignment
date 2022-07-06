@@ -1,25 +1,25 @@
 class PostsModel {
   PostsModel({required this.posts});
-  late final List<Post> posts;
+  late final List<PostModel> posts;
   PostsModel.fromJson(dynamic json) {
-    posts = List.from(json).map((e) => Post.fromJson(e)).toList();
+    posts = List.from(json).map((e) => PostModel.fromJson(e)).toList();
   }
 }
 
-class Post {
+class PostModel {
   int? userId;
   int? id;
   String? title;
   String? body;
 
-  Post({
+  PostModel({
     this.userId,
     this.id,
     this.title,
     this.body,
   });
 
-  Post.fromJson(Map<String, dynamic> json) {
+  PostModel.fromJson(Map<String, dynamic> json) {
     userId = json['userId'] as int?;
     id = json['id'] as int?;
     title = json['title'] as String?;

@@ -1,13 +1,13 @@
 class UsersModel {
   UsersModel({required this.users});
-  late final List<User> users;
+  late final List<UserModel> users;
   UsersModel.fromJson(dynamic json) {
-    users = List.from(json).map((e) => User.fromJson(e)).toList();
+    users = List.from(json).map((e) => UserModel.fromJson(e)).toList();
   }
 }
 
-class User {
-  User({
+class UserModel {
+  UserModel({
     required this.albumId,
     required this.userId,
     required this.name,
@@ -20,7 +20,7 @@ class User {
   late final String url;
   late final String thumbnailUrl;
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     albumId = json['albumId'];
     userId = json['userId'];
     name = json['name'];

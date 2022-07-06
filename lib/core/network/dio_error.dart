@@ -12,8 +12,6 @@ class CustomizeDioError extends DioError {
     late String finalError;
     debugPrint(e.error.toString());
     debugPrint(e.message);
-    debugPrint(e.stackTrace.toString());
-
     if (e.response == null) {
       return CustomizeDioError(
         error: 'Timeout Exception',
