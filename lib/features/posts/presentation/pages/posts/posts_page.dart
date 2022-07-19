@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:velowesalt/core/extension/string_extension.dart';
 import 'package:velowesalt/core/share_widgets/loading_widget.dart';
 import 'package:velowesalt/features/posts/data/models/post_argument.dart';
 import 'package:velowesalt/features/posts/presentation/bloc/posts/posts_cubit.dart';
@@ -14,16 +15,23 @@ class PostsPage extends StatefulWidget {
 }
 
 class _PostsPageState extends State<PostsPage> {
+  var _scrollController = ScrollController();
   @override
   void initState() {
     context.read<PostsCubit>().getUserPosts(widget.argument.userId);
     super.initState();
   }
 
+  bool get _isAppBarExpanded {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (200 - kToolbarHeight);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
+        controller: _scrollController,
         headerSliverBuilder: ((context, innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
@@ -41,8 +49,10 @@ class _PostsPageState extends State<PostsPage> {
                     tag: widget.argument.userId,
                     child: Text(
                       "${widget.argument.userName}'s Posts",
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: _isAppBarExpanded
+                            ? Colors.white
+                            : widget.argument.shortPicture.fromPicture,
                       ),
                     ),
                   ),

@@ -26,7 +26,8 @@ class UserListView extends StatelessWidget {
                       arguments: PostArgument(
                           userName: user.name,
                           userId: user.userId,
-                          bigPicture: user.url));
+                          bigPicture: user.url,
+                          shortPicture: user.thumbnailUrl));
                 });
           },
           separatorBuilder: (context, _) {

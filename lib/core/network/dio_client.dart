@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:velowesalt/core/network/dio_error.dart';
+import 'package:dio_logger/dio_logger.dart';
 
 class DioClient with DioMixin implements Dio {
   // if we need token here we have to use
@@ -24,6 +25,8 @@ class DioClient with DioMixin implements Dio {
     // if we need to logout our control some special errors like 403 and 401
     // here is the good place for adding it with interceptor.add....
 
+/*     interceptors.add(dioLoggerInterceptor);
+ */
     interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
